@@ -3,8 +3,8 @@
 ------------------------------------------------------------
 hs.logger.defaultLogLevel="info"
 
-require "hyper"
-require "windowmanagement"
+--require "hammer"
+--require "windowmanagement"
 require "wifinotifier"
 
 -- Capture the hostname, so we can make this config behave differently across my Macs
@@ -19,6 +19,21 @@ end
 
 hs.pathwatcher.new(os.getenv("HOME") .. "/.hammerspoon/", reload_config):start()
 hs.alert.show("Hammerspoon config (re)loaded")
+
+-----------------------------------------------
+-- Bind the hammer key
+-----------------------------------------------
+
+-- The clean modal keybindings are made possible due to a comment from Steve Kehlet (github/skehlet),
+-- he mentioned that there is no need to assign a key to the modal key.
+-- With that a much cleaner piece of code.
+-- Important here is the Karabiner-elements configuration where the "to_if_alone"-section
+-- is used to restore the original key function.
+
+-- In karabiner-elements set 'tab' to f18/escape
+
+hammer = hs.hotkey.modal.new()
+f18 = hs.hotkey.bind({}, 'f18', function () hammer:enter() end, function () hammer:exit() end)
 
 ------------------------------------------------------------
 -- Load SpoonInstall, so we can easily load our other Spoons
@@ -37,7 +52,7 @@ Install:andUse("MouseCircle",
                         color = hs.drawing.color.x11.darkred
                 },
                 hotkeys = {
-                    show = { {"ctrl"}, "m" }
+                    show = { {hammer}, "m" }
                 }
             }
 )

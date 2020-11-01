@@ -1,4 +1,5 @@
-# hammerspoon
+# Hammerspoon
+
 My Hammerspoon configuration
 
 Still struggling with the hyper key in combination with spoons,
@@ -10,4 +11,4 @@ Create symbolic links in the ~/.hammerspoon directory to the git working directo
 ln -s /Users/albert/git/github.com/tisgoud/hammerspoon/*.lua ~/.hammerspoon/
 ```
 
-Spoons are located in the !/.hammerspoon/Spoons directory
+Spoons are located in the ~/.hammerspoon/Spoons directory
