@@ -12,3 +12,6 @@ ln -s /Users/albert/git/github.com/tisgoud/hammerspoon/*.lua ~/.hammerspoon/
 ```
 
 Spoons are located in the ~/.hammerspoon/Spoons directory
+
+Requirement:
+- Download [SpoonInstall](https://github.com/Hammerspoon/Spoons/raw/master/Spoons/SpoonInstall.spoon.zip) and unzip it in the `~/.hammerspoon/Spoons` directory.

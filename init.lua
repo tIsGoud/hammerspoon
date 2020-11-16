@@ -42,14 +42,15 @@ end)
 Install:andUse("MiroWindowsManager",
   {
     config = {
-      sizes = {2, 3, 3/2}
+      fullScreenSizes = {1,4/3},  -- 1/1 or 3/4 of the total screen's size
+      sizes = {2, 3, 3/2}         -- 1/2, 1/3 and 2/3 of the total screen's size
     },
     hotkeys = {
-      up =         { ctrl_opt, "up" },
-      right =      { ctrl_opt, "right" },
-      down =       { ctrl_opt, "down" },
-      left =       { ctrl_opt, "left" },
-      fullscreen = { ctrl_opt, "return" }
+      up =         { hyper, "up" },
+      right =      { hyper, "right" },
+      down =       { hyper, "down" },
+      left =       { hyper, "left" },
+      fullscreen = { hyper, "return" }
     }
   }
 )
