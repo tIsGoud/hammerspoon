@@ -1,7 +1,7 @@
 -----------------------------------------------------------------------------
 -- Init.lua
 -----------------------------------------------------------------------------
-hs.logger.defaultLogLevel="info"
+hs.logger.defaultLogLevel="debug"
 hs.window.animationDuration = 0
 
 -- "hyper" is configured as "tab" in Karabiner-Elements
@@ -21,6 +21,16 @@ spoon.SpoonInstall.use_syncinstall = true
 Install=spoon.SpoonInstall
 
 -----------------------------------------------------------------------------
+-- MicMute, mute the microphone
+-----------------------------------------------------------------------------
+Install:andUse("MicMute")
+
+-- Eventhandler
+hs.urlevent.bind("toggleMic", function(eventName, params)
+    spoon.MicMute:toggleMicMute()
+end)
+
+-----------------------------------------------------------------------------
 -- ReloadConfiguration
 -----------------------------------------------------------------------------
 -- Install:andUse("ReloadConfiguration",
@@ -34,6 +44,12 @@ Install=spoon.SpoonInstall
 
 hs.hotkey.bind(hyper, "r", function()
   hs.reload()
+end)
+
+-- Eventhandler
+hs.urlevent.bind("reloadConfig", function(eventName, params)
+    hs.reload()
+    hs.notify.new({title="Hammerspoon", informativeText="Reloaded configuration"}):send()
 end)
 
 -----------------------------------------------------------------------------
@@ -65,7 +81,7 @@ Install:andUse("WindowScreenLeftAndRight",
       animationDuration = 0
     },
     hotkeys = {
-      screen_left = {  ctrl_shift, "left"},
+      screen_left = { ctrl_shift, "left"},
       screen_right = { ctrl_shift, "right"}
     }
   }
@@ -85,6 +101,11 @@ Install:andUse("MouseCircle",
   }
 )
 
+-- Eventhandler
+hs.urlevent.bind("showMouse", function(eventName, params)
+    spoon.MouseCircle:show()
+end)
+
 -----------------------------------------------------------------------------
 -- PopupTranslateSelection, show a popup window with the translation of the
 -- currently selected (or other) text
@@ -97,11 +118,25 @@ Install:andUse("PopupTranslateSelection",
     --     wm.closable|wm.resizable,
     -- },
     hotkeys = {
-      translate_nl_en = { hyper, "e" },
-      translate_en_nl = { hyper, "d" }
+      translate_nl_en = { hyper, "n" },
+      translate_en_nl = { hyper, "e" },
+      translate_de_nl = { hyper, "d" }
     }
   }
 )
+
+-- EventHandlers
+hs.urlevent.bind("translate_NL_to_EN", function(eventName, params)
+    spoon.PopupTranslateSelection:translateSelectionPopup(en, nl)
+end)
+
+hs.urlevent.bind("translate_EN_to_NL", function(eventName, params)
+    spoon.PopupTranslateSelection:translateSelectionPopup(nl, en)
+end)
+
+hs.urlevent.bind("translate_DE_to_NL", function(eventName, params)
+    spoon.PopupTranslateSelection:translateSelectionPopup(nl, de)
+end)
 
 -----------------------------------------------
 -- WiFinotifier.lua
@@ -131,3 +166,15 @@ end
 
 wifiWatcher = hs.wifi.watcher.new(ssidChangedCallback)
 wifiWatcher:start()
+
+-----------------------------------------------
+-- URL Event handlers not working
+-----------------------------------------------
+
+hs.urlevent.bind("Up", function(eventName, params)
+    spoon.MiroWindowsManager:up()
+end)
+
+hs.urlevent.bind("Down", function(eventName, params)
+    spoon.MiroWindowsManager:down()
+end)
